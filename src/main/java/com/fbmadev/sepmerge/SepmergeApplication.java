@@ -1,5 +1,7 @@
 package com.fbmadev.sepmerge;
 
+import com.fbmadev.sepmerge.sepmerge_module.SepMerge;
+
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
@@ -12,7 +14,7 @@ public class SepmergeApplication implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("Hello World!");
+		SepMerge.run(null, null, null, null);
 		// Path currDirr = Paths.get(System.getProperty("user.dir"));
 	}
 
