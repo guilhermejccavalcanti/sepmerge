@@ -91,4 +91,28 @@ public class ConflictBlock extends CodeBlock {
         return result;
 
     }
+
+    public void setLeftFile(String leftFile) {
+        this.leftFile = leftFile;
+    }
+
+    public void setBaseFile(String baseFile) {
+        this.baseFile = baseFile;
+    }
+
+    public void setRightFile(String rightFile) {
+        this.rightFile = rightFile;
+    }
+
+    public List<String> getTwoWayConflictLines() {
+        List<String> result = new ArrayList<>();
+
+        result.add("<<<<<<< " + leftFile);
+        result.addAll(left);
+        result.add("=======");
+        result.addAll(right);
+        result.add(">>>>>>> " + rightFile);
+
+        return result;
+    }
 }

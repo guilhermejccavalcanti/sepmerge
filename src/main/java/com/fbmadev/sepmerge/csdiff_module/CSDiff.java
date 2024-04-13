@@ -71,8 +71,6 @@ public class CSDiff {
             CodeBlock base = removeMarkers(new NormalBlock(conflictBlock.getBase()), separators);
             CodeBlock right = removeMarkers(new NormalBlock(conflictBlock.getRight()), separators);
 
-            System.err.println(right.getLines());
-
             conflictBlock.setLeft(left.getLines());
             conflictBlock.setBase(base.getLines());
             conflictBlock.setRight(right.getLines());

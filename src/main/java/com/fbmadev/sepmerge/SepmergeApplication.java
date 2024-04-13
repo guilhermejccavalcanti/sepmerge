@@ -2,6 +2,7 @@ package com.fbmadev.sepmerge;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import com.fbmadev.sepmerge.sepmerge_module.SepMerge;
 
@@ -36,7 +37,10 @@ public class SepmergeApplication implements Runnable {
 		Path baseFile = currDir.resolve(this.base);
 		Path rightFile = currDir.resolve(this.right);
 		Path outputFile = this.output != null ? currDir.resolve(this.output) : null;
-		SepMerge.run(leftFile, baseFile, rightFile, outputFile);
+
+		List<String> separators = List.of(":", "(", ")", ",");
+
+		SepMerge.run(leftFile, baseFile, rightFile, outputFile, separators, this.left, this.base, this.right);
 	}
 
 }
