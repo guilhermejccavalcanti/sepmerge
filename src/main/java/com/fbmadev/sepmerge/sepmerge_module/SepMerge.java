@@ -20,7 +20,9 @@ public class SepMerge {
         System.err.println("Running SepMerge");
         System.err.println("tmpFolder: " + tmpFolder);
 
-        Path diff3Tmp = runDiff3(left, base, right);
+        Path diff3Tmp = tmpFolder.resolve("diff3.tmp");
+
+        runDiff3(left, base, right, diff3Tmp);
 
         try {
             List<CodeBlock> codeBlocks = CodeBlocksReader.readCodeBlocks(Files.readAllLines(diff3Tmp));
@@ -56,14 +58,11 @@ public class SepMerge {
         return List.of(conflictBlock);
     }
 
-    private static Path runDiff3(Path left, Path base, Path right) {
+    private static void runDiff3(Path left, Path base, Path right, Path output) {
         try {
-            Path diff3Tmp = tmpFolder.resolve("diff3.tmp");
-            Diff3Runner.runDiff3(left.toString(), base.toString(), right.toString(), diff3Tmp.toString());
-            return diff3Tmp;
+            Diff3Runner.runDiff3(left.toString(), base.toString(), right.toString(), output.toString());
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
-            return null;
         }
     }
 }
