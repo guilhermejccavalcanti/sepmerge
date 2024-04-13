@@ -8,4 +8,12 @@ public abstract class CodeBlock {
     public CodeBlock(List<String> lines) {
         this.lines = lines;
     }
+
+    public List<String> getLines() {
+        return lines;
+    }
+
+    public String toString() {
+        return String.join("\n", lines);
+    }
 }
