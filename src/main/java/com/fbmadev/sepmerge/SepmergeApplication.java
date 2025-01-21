@@ -38,7 +38,8 @@ public class SepmergeApplication implements Runnable {
 		Path rightFile = currDir.resolve(this.right);
 		Path outputFile = this.output != null ? currDir.resolve(this.output) : null;
 
-		List<String> separators = List.of(":", "(", ")", ",");
+		//List<String> separators = List.of(":", "(", ")", ",");
+		List<String> separators = List.of("{","}",",","(", ")",";");
 
 		SepMerge.run(leftFile, baseFile, rightFile, outputFile, separators, this.left, this.base, this.right);
 	}
