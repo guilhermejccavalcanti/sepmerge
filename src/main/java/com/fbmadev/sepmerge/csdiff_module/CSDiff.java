@@ -90,7 +90,8 @@ public class CSDiff {
         sj.add("");
         String result = sj.toString();
         for (String separator : separators) {
-            result = result.replace(String.format("%n%s%n", separator), separator);
+            // Remove newline characters before and after the separator
+            result = result.replace("\n" + separator + "\n", separator); // Newline before and after
         }
         return new NormalBlock(List.of(result.split("\n")));
     }
