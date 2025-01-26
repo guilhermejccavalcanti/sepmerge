@@ -3,7 +3,12 @@ public class Test {
 		int a = 10;
 		int b = 10;
 		int c = 10;
-	    if( l.size() == 0 ){ return ""; }
-	    return String.join(",",l);
+
+		for(int i = 0; i < 10; i++){
+			System.out.println(i);
+		}
+
+		if( l.size() == 0 ){ return ""; }
+		return String.join(",",l);
 	}
 }

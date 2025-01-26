@@ -34,8 +34,8 @@ class SepmergeApplicationTests {
     @Test
     public void testMergingJavaFiles() throws IOException {
         final Path LEFT_FILE_PATH = Paths.get("testcase/left.java");
-        final Path BASE_FILE_PATH = Paths.get("testcase/right.java");
-        final Path RIGHT_FILE_PATH = Paths.get("testcase/base.java");
+        final Path BASE_FILE_PATH = Paths.get("testcase/base.java");
+        final Path RIGHT_FILE_PATH = Paths.get("testcase/right.java");
         final Path OUTPUT_FILE_PATH = Paths.get("testcase/output.java");
         final List<String> SEPARATORS = List.of("{", "}", ",", "(", ")", ";");
 
