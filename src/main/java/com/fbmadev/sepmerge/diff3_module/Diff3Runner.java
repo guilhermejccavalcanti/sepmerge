@@ -8,8 +8,12 @@ public class Diff3Runner {
     public static void runDiff3(String left, String base, String right, String output)
             throws InterruptedException, IOException {
         System.err.println("Running Diff3");
-        //ProcessBuilder pb = new ProcessBuilder("diff3", "-A", "-m", left, base, right).redirectOutput(new File(output));
-        ProcessBuilder pb = new ProcessBuilder("git", "merge-file", "-q", "-p", "--diff3", left, base, right).redirectOutput(new File(output));
+        ProcessBuilder pb;
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+             pb = new ProcessBuilder("git", "merge-file", "-q", "-p", "--diff3", left, base, right).redirectOutput(new File(output));
+        } else {
+             pb = new ProcessBuilder("diff3", "-m", "-A", left, base, right).redirectOutput(new File(output));
+        }
         pb.start().waitFor();
     }
 }
