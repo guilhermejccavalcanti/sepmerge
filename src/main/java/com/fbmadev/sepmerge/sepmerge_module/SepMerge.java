@@ -1,5 +1,6 @@
 package com.fbmadev.sepmerge.sepmerge_module;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,12 +18,17 @@ import com.fbmadev.sepmerge.utils.codeblocks.NormalBlock;
 
 public class SepMerge {
 
-    private static final Path tmpFolder = Path.of(System.getProperty("java.io.tmpdir"));
+    private static final Path tmpFolder = Path.of(System.getProperty("java.io.tmpdir")
+            + File.separator
+            + String.valueOf(System.currentTimeMillis()));
 
     public static void run(Path left, Path base, Path right, Path output, List<String> separators,
             String leftFileString, String baseFileString, String rightFileString) {
         System.err.println("Running SepMerge");
         System.err.println("tmpFolder: " + tmpFolder);
+
+        File tempFolderDir = new File(tmpFolder.toString());
+        if(!tempFolderDir.exists()) tempFolderDir.mkdirs();
 
         Path diff3Tmp = tmpFolder.resolve("diff3.tmp");
 
