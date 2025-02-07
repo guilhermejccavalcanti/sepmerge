@@ -33,17 +33,19 @@ class SepmergeApplicationTests {
 
     @Test
     public void testMergingJavaFiles() throws IOException {
-        final Path LEFT_FILE_PATH = Paths.get("testcase/left.java");
-        final Path BASE_FILE_PATH = Paths.get("testcase/base.java");
-        final Path RIGHT_FILE_PATH = Paths.get("testcase/right.java");
-        final Path OUTPUT_FILE_PATH = Paths.get("testcase/output.java");
+        final String LEFT_FILE_PATH = "testcase/left.java";
+        final String BASE_FILE_PATH = "testcase/base.java";
+        final String RIGHT_FILE_PATH = "testcase/right.java";
+        final String OUTPUT_FILE_PATH =  "testcase/output.java";
+
         final List<String> SEPARATORS = List.of("{", "}", ",", "(", ")", ";");
 
         // Run the java file merge operation
-        SepMerge.run(LEFT_FILE_PATH, BASE_FILE_PATH, RIGHT_FILE_PATH, OUTPUT_FILE_PATH, SEPARATORS, "", "", "");
+        SepMerge.run(Paths.get(LEFT_FILE_PATH), Paths.get(BASE_FILE_PATH), Paths.get(RIGHT_FILE_PATH),
+                Paths.get(OUTPUT_FILE_PATH), SEPARATORS, LEFT_FILE_PATH, BASE_FILE_PATH, RIGHT_FILE_PATH);
 
         // Read and validate the merge result
-        String mergeResult = readFileContent(OUTPUT_FILE_PATH);
+        String mergeResult = readFileContent( Paths.get(OUTPUT_FILE_PATH));
         assertTrue(mergeResult.contains("<<<<<<<"));
     }
 
