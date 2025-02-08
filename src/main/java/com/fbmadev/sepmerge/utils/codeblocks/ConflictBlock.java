@@ -80,13 +80,13 @@ public class ConflictBlock extends CodeBlock {
     public List<String> getLines() {
         List<String> result = new ArrayList<>();
 
-        result.add("<<<<<<< " + leftFile);
+        result.add("<<<<<<< MINE");
         result.addAll(left);
-        result.add("||||||| " + baseFile);
+        result.add("||||||| BASE");
         result.addAll(base);
         result.add("=======");
         result.addAll(right);
-        result.add(">>>>>>> " + rightFile);
+        result.add(">>>>>>> YOURS");
 
         return result;
 
@@ -107,11 +107,11 @@ public class ConflictBlock extends CodeBlock {
     public List<String> getTwoWayConflictLines() {
         List<String> result = new ArrayList<>();
 
-        result.add("<<<<<<< " + leftFile);
+        result.add("<<<<<<< MINE");
         result.addAll(left);
         result.add("=======");
         result.addAll(right);
-        result.add(">>>>>>> " + rightFile);
+        result.add(">>>>>>> YOURS");
 
         return result;
     }
