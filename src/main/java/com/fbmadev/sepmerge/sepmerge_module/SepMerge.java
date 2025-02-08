@@ -69,13 +69,13 @@ public class SepMerge {
     private static void writeOutput(List<CodeBlock> codeBlocks, Path output, String leftFileString,
             String baseFileString, String rightFileString) throws IOException {
         StringJoiner sj = getStringJoiner(codeBlocks, leftFileString, baseFileString, rightFileString);
-        Files.writeString(output, sj.toString() + "\n");
+        Files.writeString(output, sj.toString());
     }
 
     private static String writeOutput(List<CodeBlock> codeBlocks, String leftFileString,
                                     String baseFileString, String rightFileString) throws IOException {
         StringJoiner sj = getStringJoiner(codeBlocks, leftFileString, baseFileString, rightFileString);
-        return (sj.toString() + "\n");
+        return (sj.toString());
     }
 
     private static StringJoiner getStringJoiner(List<CodeBlock> codeBlocks, String leftFileString,
