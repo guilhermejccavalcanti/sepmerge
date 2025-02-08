@@ -26,6 +26,8 @@ public class SepmergeApplication implements Runnable {
 	@Option(names = { "-o", "--output" }, description = "Output file path.")
 	private String output;
 
+	public static List<String> separators = List.of("{","}",",","(", ")",";");
+
 	public static void main(String[] args) {
 		new CommandLine(new SepmergeApplication()).execute(args);
 	}
@@ -38,10 +40,8 @@ public class SepmergeApplication implements Runnable {
 		Path rightFile = currDir.resolve(this.right);
 		Path outputFile = this.output != null ? currDir.resolve(this.output) : null;
 
-		//List<String> separators = List.of(":", "(", ")", ",");
-		List<String> separators = List.of("{","}",",","(", ")",";");
-
-		SepMerge.run(leftFile, baseFile, rightFile, outputFile, separators, this.left, this.base, this.right);
+		SepMerge.run(leftFile, baseFile, rightFile, outputFile, SepmergeApplication.separators,
+				this.left, this.base, this.right);
 	}
 
 }
