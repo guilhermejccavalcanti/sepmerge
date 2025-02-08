@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
+import com.fbmadev.sepmerge.SepmergeApplication;
 import com.fbmadev.sepmerge.csdiff_module.CSDiff;
 import com.fbmadev.sepmerge.diff3_module.Diff3Runner;
 import com.fbmadev.sepmerge.utils.CodeBlocksReader;
@@ -43,8 +45,41 @@ public class SepMerge {
         }
     }
 
+    public static String run(String leftFilePath, String baseFilePath, String rightFilePath) {
+        System.err.println("Running SepMerge");
+        System.err.println("tmpFolder: " + tmpFolder);
+
+        File tempFolderDir = new File(tmpFolder.toString());
+        if(!tempFolderDir.exists()) tempFolderDir.mkdirs();
+
+        Path diff3Tmp = tmpFolder.resolve("diff3.tmp");
+
+        runDiff3(Paths.get(leftFilePath), Paths.get(baseFilePath), Paths.get(rightFilePath), diff3Tmp);
+
+        try {
+            List<CodeBlock> codeBlocks = CodeBlocksReader.readCodeBlocks(Files.readAllLines(diff3Tmp));
+            List<CodeBlock> resolvedCodeBlocks = processCodeBlocks(codeBlocks, SepmergeApplication.separators);
+           return writeOutput(resolvedCodeBlocks, leftFilePath, baseFilePath, rightFilePath);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private static void writeOutput(List<CodeBlock> codeBlocks, Path output, String leftFileString,
             String baseFileString, String rightFileString) throws IOException {
+        StringJoiner sj = getStringJoiner(codeBlocks, leftFileString, baseFileString, rightFileString);
+        Files.writeString(output, sj.toString() + "\n");
+    }
+
+    private static String writeOutput(List<CodeBlock> codeBlocks, String leftFileString,
+                                    String baseFileString, String rightFileString) throws IOException {
+        StringJoiner sj = getStringJoiner(codeBlocks, leftFileString, baseFileString, rightFileString);
+        return (sj.toString() + "\n");
+    }
+
+    private static StringJoiner getStringJoiner(List<CodeBlock> codeBlocks, String leftFileString,
+                                                String baseFileString, String rightFileString) {
         StringJoiner sj = new StringJoiner("\n");
         for (CodeBlock codeBlock : codeBlocks) {
             CodeBlock cb = codeBlock;
@@ -57,7 +92,7 @@ public class SepMerge {
             }
             sj.add(cb.toString());
         }
-        Files.writeString(output, sj.toString() + "\n");
+        return sj;
     }
 
     private static List<CodeBlock> processCodeBlocks(List<CodeBlock> codeBlocks, List<String> separators)

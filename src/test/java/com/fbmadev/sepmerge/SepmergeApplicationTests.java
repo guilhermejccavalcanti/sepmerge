@@ -49,6 +49,17 @@ class SepmergeApplicationTests {
         assertTrue(mergeResult.contains("<<<<<<<"));
     }
 
+    @Test
+    public void testMergingJavaFilesOnScreen() throws IOException {
+        final String LEFT_FILE_PATH = "testcase/left.java";
+        final String BASE_FILE_PATH = "testcase/base.java";
+        final String RIGHT_FILE_PATH = "testcase/right.java";
+
+        // Run the java file merge operation
+        String mergeResult = SepMerge.run(LEFT_FILE_PATH, BASE_FILE_PATH,RIGHT_FILE_PATH);
+        assertTrue(mergeResult.contains("<<<<<<<"));
+    }
+
     // Helper method for reading file lines and joining them into a single string
     private String readFileContent(Path filePath) throws IOException {
         return Files.readAllLines(filePath).stream().collect(Collectors.joining());
