@@ -9,11 +9,12 @@ public class Diff3Runner {
             throws InterruptedException, IOException {
         System.err.println("Running Diff3");
         ProcessBuilder pb;
-        if (System.getProperty("os.name").toLowerCase().contains("win")) {
-             pb = new ProcessBuilder("git", "merge-file", "-q", "-p", "--diff3", left, base, right).redirectOutput(new File(output));
-        } else {
-             pb = new ProcessBuilder("diff3", "-m", "-A", left, base, right).redirectOutput(new File(output));
-        }
+        pb = new ProcessBuilder("git", "merge-file", "-q", "-p", "--diff3", left, base, right).redirectOutput(new File(output));
+//        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+//             pb = new ProcessBuilder("git", "merge-file", "-q", "-p", "--diff3", left, base, right).redirectOutput(new File(output));
+//        } else {
+//             pb = new ProcessBuilder("diff3", "-m", "-A", left, base, right).redirectOutput(new File(output));
+//        }
         pb.start().waitFor();
     }
 }
